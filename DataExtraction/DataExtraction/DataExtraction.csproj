@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ConnectionInfo.cs" />
     <Compile Include="DateHandler.cs" />
+    <Compile Include="DataIDontNeed.cs" />
     <Compile Include="FormHome.cs">
       <SubType>Form</SubType>
     </Compile>
