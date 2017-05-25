@@ -41,9 +41,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.richTextBoxCommentoColonna = new System.Windows.Forms.RichTextBox();
+            this.dataGridViewRisultatoRicerca = new System.Windows.Forms.DataGridView();
+            this.listBoxTavole = new System.Windows.Forms.ListBox();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRisultatoRicerca)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxElencoDataBase
@@ -51,7 +54,7 @@
             this.listBoxElencoDataBase.FormattingEnabled = true;
             this.listBoxElencoDataBase.Location = new System.Drawing.Point(12, 68);
             this.listBoxElencoDataBase.Name = "listBoxElencoDataBase";
-            this.listBoxElencoDataBase.Size = new System.Drawing.Size(260, 537);
+            this.listBoxElencoDataBase.Size = new System.Drawing.Size(260, 264);
             this.listBoxElencoDataBase.TabIndex = 0;
             this.listBoxElencoDataBase.SelectedIndexChanged += new System.EventHandler(this.listBoxElencoDataBase_SelectedIndexChanged);
             // 
@@ -138,7 +141,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-2, 7);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(977, 53);
+            this.panel1.Size = new System.Drawing.Size(1734, 53);
             this.panel1.TabIndex = 7;
             // 
             // label1
@@ -146,11 +149,11 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(331, 12);
+            this.label1.Location = new System.Drawing.Point(785, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(315, 26);
+            this.label1.Size = new System.Drawing.Size(164, 26);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Selezionare la data desiderata";
+            this.label1.Text = "Estrazione Dati";
             // 
             // panel2
             // 
@@ -164,15 +167,33 @@
             // 
             this.richTextBoxCommentoColonna.Location = new System.Drawing.Point(565, 70);
             this.richTextBoxCommentoColonna.Name = "richTextBoxCommentoColonna";
-            this.richTextBoxCommentoColonna.Size = new System.Drawing.Size(391, 41);
+            this.richTextBoxCommentoColonna.Size = new System.Drawing.Size(1152, 41);
             this.richTextBoxCommentoColonna.TabIndex = 9;
             this.richTextBoxCommentoColonna.Text = "";
+            // 
+            // dataGridViewRisultatoRicerca
+            // 
+            this.dataGridViewRisultatoRicerca.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewRisultatoRicerca.Location = new System.Drawing.Point(569, 123);
+            this.dataGridViewRisultatoRicerca.Name = "dataGridViewRisultatoRicerca";
+            this.dataGridViewRisultatoRicerca.Size = new System.Drawing.Size(1147, 616);
+            this.dataGridViewRisultatoRicerca.TabIndex = 10;
+            // 
+            // listBoxTavole
+            // 
+            this.listBoxTavole.FormattingEnabled = true;
+            this.listBoxTavole.Location = new System.Drawing.Point(12, 341);
+            this.listBoxTavole.Name = "listBoxTavole";
+            this.listBoxTavole.Size = new System.Drawing.Size(260, 264);
+            this.listBoxTavole.TabIndex = 11;
             // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(970, 778);
+            this.ClientSize = new System.Drawing.Size(1729, 778);
+            this.Controls.Add(this.listBoxTavole);
+            this.Controls.Add(this.dataGridViewRisultatoRicerca);
             this.Controls.Add(this.richTextBoxCommentoColonna);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -189,6 +210,7 @@
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRisultatoRicerca)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -208,6 +230,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.RichTextBox richTextBoxCommentoColonna;
+        private System.Windows.Forms.DataGridView dataGridViewRisultatoRicerca;
+        private System.Windows.Forms.ListBox listBoxTavole;
     }
 }
 
