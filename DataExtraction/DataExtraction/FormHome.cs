@@ -186,10 +186,11 @@ namespace DataExtraction
                 //visualizzare i nomi,
                 //selezionare id del database
                 //chiudere connessione
+                int numeroColonneAnteprima = 10;
                 string dbName = listBoxElencoDataBase.SelectedValue.ToString();
                 string tableName = listBoxTavole.SelectedValue.ToString();
                 using (SqlConnection connection = new SqlConnection(ConnectionInfo.ConnectToSelectedDB(dbName)))
-                using (SqlDataAdapter adapter = new SqlDataAdapter($"SELECT TOP 10 * from [{dbName}].dbo.[{tableName}] ORDER BY LocalCol DESC", connection))
+                using (SqlDataAdapter adapter = new SqlDataAdapter($"SELECT TOP {numeroColonneAnteprima} * from [{dbName}].dbo.[{tableName}] ORDER BY LocalCol DESC", connection))
                 {
                     DataTable table = new DataTable();
                     adapter.Fill(table);
@@ -199,6 +200,11 @@ namespace DataExtraction
                     DoIHaveToDropThisColumn(table,DataIDontNeed.NomiColonneIDONTNeedButLocalCol);
 
                     dataGridViewRisultatoRicerca.DataSource = table;
+                    labelInfoTabella.Text = $"[ Anteprima ] : Ultimi {numeroColonneAnteprima} salvataggi contenuti nella tabella [{tableName}]";
+                    labelInfoTabella.ForeColor = Color.Purple;
+                    panelInfoTabella.BackColor = Color.LightSalmon;
+                    
+
                 }
 
             }
@@ -226,6 +232,9 @@ namespace DataExtraction
                     DataTable table = new DataTable();
                     adapter.Fill(table);
                     dataGridViewRisultatoRicerca.DataSource = table;
+                    labelInfoTabella.Text = $"Singola Colonna : Visualizzata la colonna [{columnName}] , della tabella [{tableName}]";
+                    labelInfoTabella.ForeColor = Color.White;
+                    panelInfoTabella.BackColor = Color.FromArgb(128, 128, 255);
                 }
 
             }
@@ -253,6 +262,10 @@ namespace DataExtraction
                     ///cancello le colonne su richiesta del cliente
                     DoIHaveToDropThisColumn(table, DataIDontNeed.NomiColonneIDONTNeedButLocalCol);
                     dataGridViewRisultatoRicerca.DataSource = table;
+                    labelInfoTabella.Text = $"Tavola Completa : Visualizzati i dati della tabella [{tableName}], contenuti nel range delle date selezionate";
+                    labelInfoTabella.ForeColor = Color.White;
+                    panelInfoTabella.BackColor = Color.FromArgb(128, 128, 255);
+
                 }
 
             }

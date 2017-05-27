@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.listBoxElencoDataBase = new System.Windows.Forms.ListBox();
             this.listBoxColonne = new System.Windows.Forms.ListBox();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -54,6 +54,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
+            this.panelInfoTabella = new System.Windows.Forms.Panel();
+            this.labelInfoTabella = new System.Windows.Forms.Label();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -62,6 +64,7 @@
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel8.SuspendLayout();
+            this.panelInfoTabella.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBoxElencoDataBase
@@ -84,7 +87,7 @@
             this.listBoxColonne.ItemHeight = 17;
             this.listBoxColonne.Location = new System.Drawing.Point(295, 119);
             this.listBoxColonne.Name = "listBoxColonne";
-            this.listBoxColonne.Size = new System.Drawing.Size(260, 361);
+            this.listBoxColonne.Size = new System.Drawing.Size(260, 293);
             this.listBoxColonne.TabIndex = 0;
             this.listBoxColonne.SelectedIndexChanged += new System.EventHandler(this.listBoxColonne_SelectedIndexChanged);
             // 
@@ -199,31 +202,33 @@
             // richTextBoxCommentoColonna
             // 
             this.richTextBoxCommentoColonna.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxCommentoColonna.Enabled = false;
             this.richTextBoxCommentoColonna.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxCommentoColonna.Location = new System.Drawing.Point(565, 118);
+            this.richTextBoxCommentoColonna.Location = new System.Drawing.Point(295, 452);
             this.richTextBoxCommentoColonna.Name = "richTextBoxCommentoColonna";
-            this.richTextBoxCommentoColonna.Size = new System.Drawing.Size(1152, 41);
+            this.richTextBoxCommentoColonna.Size = new System.Drawing.Size(260, 41);
             this.richTextBoxCommentoColonna.TabIndex = 9;
             this.richTextBoxCommentoColonna.Text = "";
             // 
             // dataGridViewRisultatoRicerca
             // 
-            this.dataGridViewRisultatoRicerca.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewRisultatoRicerca.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dataGridViewRisultatoRicerca.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewRisultatoRicerca.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Blue;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewRisultatoRicerca.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Blue;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewRisultatoRicerca.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewRisultatoRicerca.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewRisultatoRicerca.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewRisultatoRicerca.EnableHeadersVisualStyles = false;
-            this.dataGridViewRisultatoRicerca.Location = new System.Drawing.Point(565, 165);
+            this.dataGridViewRisultatoRicerca.Location = new System.Drawing.Point(565, 129);
             this.dataGridViewRisultatoRicerca.Name = "dataGridViewRisultatoRicerca";
-            this.dataGridViewRisultatoRicerca.Size = new System.Drawing.Size(1147, 577);
+            this.dataGridViewRisultatoRicerca.Size = new System.Drawing.Size(1147, 613);
             this.dataGridViewRisultatoRicerca.TabIndex = 10;
             // 
             // listBoxTavole
@@ -244,9 +249,9 @@
             this.buttonFiltraColonna.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.buttonFiltraColonna.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonFiltraColonna.ForeColor = System.Drawing.Color.Blue;
-            this.buttonFiltraColonna.Location = new System.Drawing.Point(295, 483);
+            this.buttonFiltraColonna.Location = new System.Drawing.Point(295, 503);
             this.buttonFiltraColonna.Name = "buttonFiltraColonna";
-            this.buttonFiltraColonna.Size = new System.Drawing.Size(260, 59);
+            this.buttonFiltraColonna.Size = new System.Drawing.Size(260, 48);
             this.buttonFiltraColonna.TabIndex = 12;
             this.buttonFiltraColonna.Text = "Filtra Singola Colonna";
             this.buttonFiltraColonna.UseVisualStyleBackColor = false;
@@ -258,9 +263,9 @@
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.button2.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.Blue;
-            this.button2.Location = new System.Drawing.Point(295, 545);
+            this.button2.Location = new System.Drawing.Point(295, 556);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(260, 59);
+            this.button2.Size = new System.Drawing.Size(260, 48);
             this.button2.TabIndex = 13;
             this.button2.Text = "Elenco Tavola Completa";
             this.button2.UseVisualStyleBackColor = false;
@@ -341,9 +346,9 @@
             this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.label8);
-            this.panel8.Location = new System.Drawing.Point(565, 87);
+            this.panel8.Location = new System.Drawing.Point(295, 421);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1152, 32);
+            this.panel8.Size = new System.Drawing.Size(260, 32);
             this.panel8.TabIndex = 17;
             // 
             // label8
@@ -352,17 +357,41 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(394, 3);
+            this.label8.Location = new System.Drawing.Point(66, 3);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(363, 24);
+            this.label8.Size = new System.Drawing.Size(127, 24);
             this.label8.TabIndex = 2;
-            this.label8.Text = "Informazioni sulla colonna selezionata";
+            this.label8.Text = "Info colonna";
+            // 
+            // panelInfoTabella
+            // 
+            this.panelInfoTabella.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelInfoTabella.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.panelInfoTabella.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelInfoTabella.Controls.Add(this.labelInfoTabella);
+            this.panelInfoTabella.Location = new System.Drawing.Point(565, 87);
+            this.panelInfoTabella.Name = "panelInfoTabella";
+            this.panelInfoTabella.Size = new System.Drawing.Size(1147, 42);
+            this.panelInfoTabella.TabIndex = 18;
+            // 
+            // labelInfoTabella
+            // 
+            this.labelInfoTabella.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelInfoTabella.AutoSize = true;
+            this.labelInfoTabella.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelInfoTabella.ForeColor = System.Drawing.Color.White;
+            this.labelInfoTabella.Location = new System.Drawing.Point(28, 8);
+            this.labelInfoTabella.Name = "labelInfoTabella";
+            this.labelInfoTabella.Size = new System.Drawing.Size(125, 24);
+            this.labelInfoTabella.TabIndex = 2;
+            this.labelInfoTabella.Text = "Tabella Dati ";
             // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1729, 778);
+            this.Controls.Add(this.panelInfoTabella);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
@@ -398,6 +427,8 @@
             this.panel7.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
+            this.panelInfoTabella.ResumeLayout(false);
+            this.panelInfoTabella.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -429,6 +460,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Panel panelInfoTabella;
+        private System.Windows.Forms.Label labelInfoTabella;
     }
 }
 
