@@ -53,13 +53,24 @@ namespace DataExtraction
             }
         }
 
-        private bool doINeedThisRow( DataRow _row , string[] _dbToRemove)
+        private bool doINeedThisRow(DataRow _row, string[] _dbToRemove)
         {
-            foreach( string nomeDb in _dbToRemove)
+            foreach (string nomeDb in _dbToRemove)
             {
                 if (_row[0].ToString() == nomeDb) return false;
             }
             return true;
+        }
+
+        private void DoIHaveToDropThisColumn(DataTable _table, string[] _columnsToBeDropped)
+        {
+            foreach (string nomeColonna in _columnsToBeDropped)
+            {
+                if (_table.Columns.Contains(nomeColonna))
+                {
+                    _table.Columns.Remove(nomeColonna);
+                }
+            }
         }
 
         private void listBoxElencoDataBase_SelectedIndexChanged(object sender, EventArgs e)
@@ -167,7 +178,7 @@ namespace DataExtraction
             #region Popola la tabella
 
 
-            //inserire le ultime 100 righe
+            //inserire le ultime 10 righe
             try
             {
                 //aprire connessione 
@@ -182,6 +193,11 @@ namespace DataExtraction
                 {
                     DataTable table = new DataTable();
                     adapter.Fill(table);
+
+                    /// cancello le colonne che su richiesta del cliente non devono
+                    /// essere piu mostrate perche creano confusione
+                    DoIHaveToDropThisColumn(table,DataIDontNeed.NomiColonneIDONTNeedButLocalCol);
+
                     dataGridViewRisultatoRicerca.DataSource = table;
                 }
 
@@ -234,6 +250,8 @@ namespace DataExtraction
                 {
                     DataTable table = new DataTable();
                     adapter.Fill(table);
+                    ///cancello le colonne su richiesta del cliente
+                    DoIHaveToDropThisColumn(table, DataIDontNeed.NomiColonneIDONTNeedButLocalCol);
                     dataGridViewRisultatoRicerca.DataSource = table;
                 }
 
