@@ -17,6 +17,8 @@ namespace DataExtraction
         {
             InitializeComponent();
             CaricaDB();
+            dateTimePickerPeriodoInizio.Value = DateTime.Now;
+            dateTimePickerPeriodoFine.Value = DateTime.Now;
         }
 
         private void CaricaDB()
@@ -41,10 +43,14 @@ namespace DataExtraction
                         DataRow dr = table.Rows[i];
                         if (!doINeedThisRow(dr, DataIDontNeed.NomiDbIDONTNeed)) dr.Delete();
                     }
-
+                    table.AcceptChanges();
+                    table.Columns.Add("DISPLAY_NAME");
+                    //cambioNome(table, DizionarioCambioNomeDb.dbToDeleteFromView);
                     listBoxElencoDataBase.DisplayMember = "DATABASE_NAME";
                     listBoxElencoDataBase.ValueMember = "DATABASE_NAME";
                     listBoxElencoDataBase.DataSource = table;
+                    listBoxElencoDataBase.Refresh();
+
                 }
             }
             catch (Exception ex)
@@ -55,27 +61,44 @@ namespace DataExtraction
 
         private bool doINeedThisRow(DataRow _row, string[] _dbToRemove)
         {
-            foreach (string nomeDb in _dbToRemove)
+            try
             {
-                if (_row[0].ToString() == nomeDb) return false;
+                foreach (string nomeDb in _dbToRemove)
+                {
+                    if (_row[0].ToString() == nomeDb) return false;
+                }
+                return true;
             }
-            return true;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Errore nel processo di mascheramento righe non utili");
+                return false;
+            }
+
         }
 
         private void DoIHaveToDropThisColumn(DataTable _table, string[] _columnsToBeDropped)
         {
-            foreach (string nomeColonna in _columnsToBeDropped)
+            try
             {
-                if (_table.Columns.Contains(nomeColonna))
+                foreach (string nomeColonna in _columnsToBeDropped)
                 {
-                    _table.Columns.Remove(nomeColonna);
+                    if (_table.Columns.Contains(nomeColonna))
+                    {
+                        _table.Columns.Remove(nomeColonna);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Errore eliminazione colonna inutile.");
+            }
+
+
         }
 
         private void listBoxElencoDataBase_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             #region  Scrittura Tavole
             try
             {
@@ -101,8 +124,6 @@ namespace DataExtraction
                 MessageBox.Show(ex.Message);
             }
             #endregion
-
-
         }
 
         private void listBoxColonne_SelectedIndexChanged(object sender, EventArgs e)
@@ -138,7 +159,6 @@ namespace DataExtraction
                 MessageBox.Show(ex.Message);
             }
             #endregion
-
 
         }
 
@@ -190,17 +210,17 @@ namespace DataExtraction
                 string dbName = listBoxElencoDataBase.SelectedValue.ToString();
                 string tableName = listBoxTavole.SelectedValue.ToString();
                 using (SqlConnection connection = new SqlConnection(ConnectionInfo.ConnectToSelectedDB(dbName)))
-                using (SqlDataAdapter adapter = new SqlDataAdapter($"SELECT TOP {numeroColonneAnteprima} * from [{dbName}].dbo.[{tableName}] ORDER BY LocalCol DESC", connection))
+                using (SqlDataAdapter adapter = new SqlDataAdapter($"SELECT TOP {numeroColonneAnteprima} * from [{dbName}].dbo.[{tableName}] --ORDER BY LocalCol DESC", connection))
                 {
                     DataTable table = new DataTable();
                     adapter.Fill(table);
 
                     /// cancello le colonne che su richiesta del cliente non devono
                     /// essere piu mostrate perche creano confusione
-                    DoIHaveToDropThisColumn(table,DataIDontNeed.NomiColonneIDONTNeedButLocalCol);
+                    //DoIHaveToDropThisColumn(table,DataIDontNeed.NomiColonneIDONTNeedButLocalCol);
 
                     dataGridViewRisultatoRicerca.DataSource = table;
-                    labelInfoTabella.Text = $"[ Anteprima ] : Ultimi {numeroColonneAnteprima} salvataggi contenuti nella tabella [{tableName}]";
+                    //labelInfoTabella.Text = $"[ Anteprima ] : Ultimi {numeroColonneAnteprima} salvataggi contenuti nella tabella [{tableName}]";
                     labelInfoTabella.ForeColor = Color.Purple;
                     panelInfoTabella.BackColor = Color.LightSalmon;
                     
@@ -232,7 +252,7 @@ namespace DataExtraction
                     DataTable table = new DataTable();
                     adapter.Fill(table);
                     dataGridViewRisultatoRicerca.DataSource = table;
-                    labelInfoTabella.Text = $"Singola Colonna : Visualizzata la colonna [{columnName}] , della tabella [{tableName}]";
+                    //labelInfoTabella.Text = $"Singola Colonna : Visualizzata la colonna [{columnName}] , della tabella [{tableName}]";
                     labelInfoTabella.ForeColor = Color.White;
                     panelInfoTabella.BackColor = Color.FromArgb(128, 128, 255);
                 }
@@ -262,7 +282,7 @@ namespace DataExtraction
                     ///cancello le colonne su richiesta del cliente
                     DoIHaveToDropThisColumn(table, DataIDontNeed.NomiColonneIDONTNeedButLocalCol);
                     dataGridViewRisultatoRicerca.DataSource = table;
-                    labelInfoTabella.Text = $"Tavola Completa : Visualizzati i dati della tabella [{tableName}], contenuti nel range delle date selezionate";
+                    //labelInfoTabella.Text = $"Tavola Completa : Visualizzati i dati della tabella [{tableName}], contenuti nel range delle date selezionate";
                     labelInfoTabella.ForeColor = Color.White;
                     panelInfoTabella.BackColor = Color.FromArgb(128, 128, 255);
 
@@ -278,6 +298,66 @@ namespace DataExtraction
         private void Home_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void cambioNome(DataTable dt, Dictionary<string,string> dictionary)
+        {
+            //Alla posizione 0 dell array row, è presente il nome del database
+            foreach (DataRow row in dt.Rows)
+            {
+
+                KeyValuePair<string,string> newColumnName = dictionary.FirstOrDefault(x => x.Key == row.ItemArray[0].ToString());
+                if (newColumnName.Value != null)
+                {
+                    row[3] = newColumnName.Value;
+                }
+                else
+                {
+                    row[3] = row[0];
+                }
+            }
+        }
+
+        private void ExportCSV_Click(object sender, EventArgs e)
+        {
+            string csv = "";
+            foreach (DataGridViewColumn col in dataGridViewRisultatoRicerca.Columns)
+            {
+                csv += col.HeaderText.Trim() + ",";
+            }
+            csv = csv.Substring(0, csv.Length - 1);
+            csv += "\n";
+
+            foreach (DataGridViewRow row in dataGridViewRisultatoRicerca.Rows)
+            {
+
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    try
+                    {
+                        csv += cell.Value.ToString().Trim()+",";
+                    }
+                    catch (Exception) // <- null exception altrimenti erroe
+                    {
+                        csv += ",";
+                    }
+                    
+                }
+                csv = csv.Substring(0, csv.Length - 1);
+                csv += "\n";
+            }
+            string path = "";
+            System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                path = dlg.SelectedPath+"\\export.csv";
+            }
+            else
+            {
+                // This prevents a crash when you close out of the window with nothing
+            }
+
+            System.IO.File.WriteAllText(path, csv);
         }
     }
 }

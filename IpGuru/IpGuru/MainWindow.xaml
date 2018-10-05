@@ -1,0 +1,16 @@
+﻿<Window x:Class="IpGuru.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IpGuru"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="340" Width="700" WindowStartupLocation="CenterScreen">
+    <Border Padding="2" Background="#fffffa" BorderThickness="2" BorderBrush="#555">
+        <StackPanel>
+            
+            <TextBlock Padding="5">Indirizzo ip scheda di rete ethernet</TextBlock>
+            <TextBlock Padding="5">Indirizzo ip scheda di rete ethernet</TextBlock>
+        </StackPanel>
+    </Border>
+</Window>

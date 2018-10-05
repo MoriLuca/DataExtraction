@@ -10,7 +10,7 @@ namespace DataExtraction
     {
         public static string[] NomiDbIDONTNeed { get; } =
         {
-           "master", "tempe", "msdb", "model", "tempdb",
+           "master", "tempe", "msdb", "model", "tempdb", "soudane",
         };
 
         public static string[] NomiColonneIDONTNeed { get; } =
