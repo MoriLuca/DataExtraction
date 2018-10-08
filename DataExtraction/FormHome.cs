@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace DataExtraction
 {
@@ -19,6 +17,15 @@ namespace DataExtraction
             CaricaDB();
             dateTimePickerPeriodoInizio.Value = DateTime.Now;
             dateTimePickerPeriodoFine.Value = DateTime.Now;
+            ResizeScreen();
+        }
+
+        void ResizeScreen()
+        {
+            if (Screen.PrimaryScreen.Bounds.Width < 1141)
+            {
+                this.Size = new Size(Screen.PrimaryScreen.Bounds.Width, this.Size.Height);
+            }
         }
 
         private void CaricaDB()
@@ -30,8 +37,34 @@ namespace DataExtraction
                 //visualizzare i nomi,
                 //selezionare id del database
                 //chiudere connessione
+                
 
-                using (SqlConnection connection = new SqlConnection(ConnectionInfo.MasterDBConnection))
+                // WRITE ON DISPLAY
+
+                ConnV CONVM = Connection.Deserializer();
+
+                textBox1.Text = CONVM.IpAddress;
+                textBox2.Text = CONVM.SqlAddress;
+                textBox4.Text = CONVM.Username;
+                textBox5.Text = CONVM.Password;
+                textBox5.Text = CONVM.Password;
+                checkBox1.Checked = CONVM.WindowsAU;
+
+                label12.Visible = !checkBox1.Checked;
+                textBox4.Visible = !checkBox1.Checked;
+                label13.Visible = !checkBox1.Checked;
+                textBox5.Visible = !checkBox1.Checked;
+
+                string ServerConnection = "";
+                if (CONVM.WindowsAU == false)
+                {
+                    ServerConnection = "server=" + CONVM.IpAddress + "\\" + CONVM.SqlAddress + "; " + " UID=" + CONVM.Username + ";password=" + CONVM.Password;
+                } else
+                {
+                    ServerConnection = "server= .\\" + CONVM.SqlAddress +"; Integrated Security=True;";
+                }
+
+                using (SqlConnection connection = new SqlConnection(ServerConnection))
                 using (SqlDataAdapter adapter = new SqlDataAdapter("EXEC sp_databases;", connection))
                 {
                     DataTable table = new DataTable();
@@ -346,18 +379,63 @@ namespace DataExtraction
                 csv = csv.Substring(0, csv.Length - 1);
                 csv += "\n";
             }
+            /*
             string path = "";
+            
             System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 path = dlg.SelectedPath+"\\export.csv";
+                System.IO.File.WriteAllText(path, csv);
             }
             else
             {
                 // This prevents a crash when you close out of the window with nothing
             }
 
-            System.IO.File.WriteAllText(path, csv);
+            */
+
+            string datetx = dateTimePickerPeriodoInizio.Value.ToString();
+            datetx = datetx.Replace("/", "_");
+            datetx = datetx.Replace(":", "_");
+
+            SaveFileDialog savefile = new SaveFileDialog();
+            savefile.FileName = listBoxElencoDataBase.SelectedValue.ToString() + "_" + listBoxTavole.SelectedValue.ToString() +"_" + datetx + ".csv";
+            savefile.Filter = "Text files (*.csv)|*.csv|All files (*.*)|*.*";
+
+            if (savefile.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(savefile.FileName))
+                    sw.WriteLine(csv);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Connection.Serializer(textBox1.Text, textBox2.Text, "", textBox4.Text, textBox5.Text, checkBox1.Checked);
+
+            Restart();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Connection.Serializer("127.0.0.1", textBox2.Text, "", textBox4.Text, textBox5.Text, true);
+
+            Restart();
+        }
+
+        public void Restart()
+        {
+            System.Diagnostics.Process.Start(Application.ExecutablePath);
+            this.Close();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            label12.Visible = !checkBox1.Checked;
+            textBox4.Visible = !checkBox1.Checked;
+            label13.Visible = !checkBox1.Checked;
+            textBox5.Visible = !checkBox1.Checked;
         }
     }
 }
